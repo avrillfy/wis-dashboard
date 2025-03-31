@@ -1,0 +1,48 @@
+[
+    {
+      "discipline": "Life Sciences",
+      "bachelorsMale": 158000,
+      "bachelorsFemale": 157000,
+      "mastersMale": 91000,
+      "mastersFemale": 121000,
+      "doctoralMale": 149000,
+      "doctoralFemale": 115000 
+    },
+    {
+      "discipline": "Computer Sciences",
+      "bachelorsMale": 2266000,
+      "bachelorsFemale": 733000,
+      "mastersMale": 920000,
+      "mastersFemale": 426000,
+      "doctoralMale": 161000,
+      "doctoralFemale": 47000
+    },
+    {
+      "discipline": "Physical Sciences",
+      "bachelorsMale": 103000,
+      "bachelorsFemale": 82000,
+      "mastersMale": 73000,
+      "mastersFemale": 46000,
+      "doctoralMale": 92000,
+      "doctoralFemale": 32000
+    },
+    {
+      "discipline": "Social Sciences",
+      "bachelorsMale": 69000,
+      "bachelorsFemale": 99000,
+      "mastersMale": 79000,
+      "mastersFemale": 162000,
+      "doctoralMale": 78000,
+      "doctoralFemale": 120000
+    },
+    {
+      "discipline": "Engineers",
+      "bachelorsMale": 1155000,
+      "bachelorsFemale": 247000,
+      "mastersMale": 550000,
+      "mastersFemale": 131000,
+      "doctoralMale": 150000,
+      "doctoralFemale": 31000
+    }
+  ]
+  

@@ -1,0 +1,79 @@
+[
+    {
+        "year": 2003,
+        "bachelorsMale": 10843000,
+        "bachelorsFemale":9522000,
+        "mastersMale":4247000,
+        "mastersFemale":4431000,
+        "doctoralMale":849000,
+        "doctoralFemale":422000
+    }, 
+    {
+        "year": 2010,
+        "bachelorsMale":12761000,
+        "bachelorsFemale":12592000,
+        "mastersMale":5280000,
+        "mastersFemale":5838000,
+        "doctoralMale":979000,
+        "doctoralFemale":521000
+    }, 
+    {
+        "year": 2013,
+        "bachelorsMale":13898000,
+        "bachelorsFemale":13904000,
+        "mastersMale":5249000,
+        "mastersFemale":6479000,
+        "doctoralMale":954000,
+        "doctoralFemale":597000
+    }, 
+
+    {
+        "year": 2015,
+        "bachelorsMale":14303000,
+        "bachelorsFemale":14206000,
+        "mastersMale":5692000,
+        "mastersFemale":7196000,
+        "doctoralMale":996000,
+        "doctoralFemale":646000
+    }, 
+
+    {
+        "year": 2017,
+        "bachelorsMale":14606000,
+        "bachelorsFemale":14206000,
+        "mastersMale":5901000,
+        "mastersFemale":7359000,
+        "doctoralMale":1062000,
+        "doctoralFemale":734000
+    }, 
+
+    {
+        "year": 2019,
+        "bachelorsMale":15353000,
+        "bachelorsFemale":16021000,
+        "mastersMale":6017000,
+        "mastersFemale":8141000,
+        "doctoralMale":1190000,
+        "doctoralFemale":900000
+    }, 
+
+    {
+        "year": 2021,
+        "bachelorsMale":15861000,
+        "bachelorsFemale":15827000,
+        "mastersMale":6375000,
+        "mastersFemale": 8314000,
+        "doctoralMale":1254000,
+        "doctoralFemale":887000
+    }, 
+
+    {
+        "year": 2023,
+        "bachelorsMale":16553000,
+        "bachelorsFemale":17847000,
+        "mastersMale":6679000,
+        "mastersFemale":9101000,
+        "doctoralMale":1361000,
+        "doctoralFemale":1060000
+    }
+]
