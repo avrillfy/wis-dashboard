@@ -120,7 +120,8 @@ const GenderTrendLineChart = () => {
           <YAxis 
             tickFormatter={formatYAxisTick}
             tick={{ fontFamily: 'Poppins, sans-serif' }}
-            domain={[0, 'auto']}
+            domain={[0, 100]}
+            
           />
           <Tooltip content={<CustomTooltip />} />
           <Legend wrapperStyle={{ fontFamily: 'Poppins, sans-serif' }}/>
