@@ -182,7 +182,6 @@ function Node({ x, y, width, height, index, payload, containerWidth }) {
   );
 }
 
-// Custom link renderer that sets the stroke color based on the source node
 const CustomLink = (props) => {
   const {
     payload: { source },
@@ -194,8 +193,6 @@ const CustomLink = (props) => {
     targetControlX,
     linkWidth,
   } = props;
-  console.log(props);
-  // Check source node's name to determine the link color
   const strokeColor = source.name.includes('Male')
     ? '#6c63ff22'
     : source.name.includes('Female')
@@ -227,43 +224,59 @@ const SankeyChart = () => {
     <div style={{ width: '100vw', margin: '0 auto' }}>
       {Object.keys(data.links).map((linkYear) => (
         <button
-          onClick={() => {
-            setYear(linkYear);
-          }}
+          onClick={() => setYear(linkYear)}
           key={linkYear}
           style={{
             ...(year.toString() === linkYear.toString()
-              ? {
-                  borderColor: 'blue',
-                  color: 'blue',
-                }
+              ? { borderColor: 'blue', color: 'blue' }
               : {}),
             marginLeft: 10,
             padding: '10px 20px',
             fontSize: 16,
-            cursor: 'pointer'
+            cursor: 'pointer',
           }}
         >
           {linkYear}
         </button>
       ))}
-      <ResponsiveContainer width="100%" height={1000}>
-        <Sankey
-          data={{ ...data, links: data.links[year] }}
-          node={<Node />}
-          nodePadding={50}
-          margin={{
-            left: 200,
-            right: 200,
-            top: 100,
-            bottom: 100,
+      <div style={{ position: 'relative', width: '100%', height: 1000 }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <Sankey
+            data={{ ...data, links: data.links[year] }}
+            node={<Node />}
+            nodePadding={50}
+            margin={{ left: 200, right: 200, top: 100, bottom: 100 }}
+            link={<CustomLink />}
+            sort={false}
+          >
+            <Tooltip />
+          </Sankey>
+        </ResponsiveContainer>
+        {/* Annotation Overlay positioned at top right */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 50,
+            right: 90,
+            pointerEvents: 'none',
+            textAlign: 'left', // text inside is left aligned
+            fontFamily: 'Poppins, sans-serif',
+            color: '#333',
+            background: 'rgba(255, 255, 255, 0.9)',
+            padding: '10px 15px',
+            borderRadius: '8px',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+            maxWidth: 350, // decreased width
           }}
-          link={<CustomLink />}
-          sort={false}
         >
-          <Tooltip />
-        </Sankey>
-      </ResponsiveContainer>
+          <h2 style={{ margin: 0, fontSize: 22, fontWeight: 'bold' }}>
+            Careers among Doctoral Graduates
+          </h2>
+          <p style={{ margin: '5px 0 0 0', fontSize: 18 }}>
+            In recent years, less female doctoral graduates transition into STEM careers compared to their male counterparts.
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

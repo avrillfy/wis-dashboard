@@ -7,38 +7,53 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ReferenceLine,
+  ReferenceArea
 } from 'recharts';
 
 // Sample data for five fields of study
-const dataEngineering = [
-  { femaleStudents: 20, femaleFaculty: 15 },
-  { femaleStudents: 30, femaleFaculty: 25 },
-  { femaleStudents: 25, femaleFaculty: 20 },
+const lifeSciences = [
+  { field: 'Agricultural and Food Sciences', femaleStudents: 30.6, wageGap: 24.2 },
+  { field: 'Biochemistry and Biophysics', femaleStudents: 39.5, wageGap:  21.8},
+  { field: 'Cell and Molecular Biology', femaleStudents: 49.8, wageGap: 20 },
+  { field: 'Natural Resources and Conservation', femaleStudents: 32.7, wageGap: 7.0 },
+  { field: 'Zoology', femaleStudents: 30.6, wageGap: 27.2 }
 ];
 
-const dataSciences = [
-  { femaleStudents: 40, femaleFaculty: 35 },
-  { femaleStudents: 50, femaleFaculty: 45 },
-  { femaleStudents: 45, femaleFaculty: 40 },
+const computerScience = [
+  { field: 'Computer and Information Sciences', femaleStudents: 19.6, wageGap: 9.1 }
 ];
 
-const dataArts = [
-  { femaleStudents: 60, femaleFaculty: 55 },
-  { femaleStudents: 70, femaleFaculty: 65 },
-  { femaleStudents: 65, femaleFaculty: 60 },
+const mathematics = [
+  { field: 'Mathematics and Statistics', femaleStudents: 23.5, wageGap: 8.4 }
 ];
 
-const dataBusiness = [
-  { femaleStudents: 30, femaleFaculty: 28 },
-  { femaleStudents: 35, femaleFaculty: 30 },
-  { femaleStudents: 32, femaleFaculty: 29 },
+const physicalSciences = [
+  { field: 'Astronomy and Astrophysics', femaleStudents: 23.6, wageGap: 7.8 },
+  { field: 'Chemistry', femaleStudents: 29.4, wageGap:  13.2},
+  { field: 'Geosciences', femaleStudents: 31.0, wageGap:  14.6},
+  { field: 'Physics', femaleStudents: 14.8, wageGap:  8.7}
 ];
 
-const dataEducation = [
-  { femaleStudents: 80, femaleFaculty: 75 },
-  { femaleStudents: 85, femaleFaculty: 80 },
-  { femaleStudents: 82, femaleFaculty: 77 },
+const psychology = [
+  { field: 'Psychology', femaleStudents: 62.1, wageGap:  -5.3}
 ];
+
+const socialSciences = [
+  { field: 'Economics', femaleStudents: 29.1, wageGap:  12.4},
+  { field: 'Political Science', femaleStudents: 38.3, wageGap:  6},
+  { field: 'Sociology and Population Studies', femaleStudents: 54.9, wageGap: 0 },
+];
+const engineering = [
+  { field: 'Aerospace and Aeronatical Engineering', femaleStudents: 10.1, wageGap: -17.3 },
+  { field: 'Chemical Engineering', femaleStudents: 22.1, wageGap: 14.8 },
+  { field: 'Civil Engineering', femaleStudents: 21.1, wageGap: 4.8 },
+  { field: 'Electrical and Computer Engineering', femaleStudents: 12.5, wageGap: -10.3 },
+  { field: 'Mechanical Engineering', femaleStudents: 13.6, wageGap: 6.93 },
+  { field: 'Materials Engineering', femaleStudents: 18.7, wageGap: 9.1 },
+];
+
+
 
 // Custom tooltip component with bullet points
 const CustomTooltip = ({ active, payload, label }) => {
@@ -53,14 +68,16 @@ const CustomTooltip = ({ active, payload, label }) => {
         }}
       >
         <div style={{ marginBottom: '5px' }}>
-          <p>Female faculty: {entry.payload.femaleFaculty}%</p>
-          <p>Female students: {entry.payload.femaleStudents}%</p>
+          <p><b>{entry.payload.field}</b></p>
+          <p>Wage Gap: {entry.payload.wageGap}%</p>
+          <p>Proportion of Female Students: {entry.payload.femaleStudents}%</p>
         </div>
       </div>
     );
   }
   return null;
 };
+
 
 const MyScatterChart = () => {
   return (
@@ -75,32 +92,61 @@ const MyScatterChart = () => {
           type="number"
           dataKey="femaleStudents"
           name="% of female students"
+          domain={[0, 100]}
           label={{
             value: '% of female students',
             position: 'insideBottom',
-            offset: -5,
+            offset: -15
           }}
         />
         <YAxis
           type="number"
-          dataKey="femaleFaculty"
-          name="% of female faculty"
+          dataKey="wageGap"
+          name="Wage Gap"
+          domain={[-50, 50]}
           label={{
-            value: '% of female faculty',
+            value: 'Wage Gap',
             angle: -90,
             position: 'insideLeft',
+            dy: 40
           }}
         />
-        <Tooltip
-          content={<CustomTooltip />}
-          cursor={{ strokeDasharray: '3 3' }}
+        <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: '3 3' }} />
+        <Legend 
+          wrapperStyle={{ paddingTop: 30 }}
+          formatter={(value) => <span style={{ fontWeight: 'bold' }}>{value}</span>}
         />
-        <Legend wrapperStyle={{ paddingTop: 30 }} />
-        <Scatter name="Engineering" data={dataEngineering} fill="#8884d8" />
-        <Scatter name="Sciences" data={dataSciences} fill="#82ca9d" />
-        <Scatter name="Arts" data={dataArts} fill="#ffc658" />
-        <Scatter name="Business" data={dataBusiness} fill="#ff7300" />
-        <Scatter name="Education" data={dataEducation} fill="#d0ed57" />
+        {/* Annotation: Reference line at 0 wage gap */}
+        <ReferenceLine 
+          y={0} 
+          stroke="#000" 
+          strokeDasharray="3 3"
+          label={{ value: "Zero Wage Gap", position: "insideLeft", fill: "#000", fontWeight: "bold", dy: -10 }}
+        />
+        {/* Vertical reference line at 50% female participation */}
+        <ReferenceLine 
+          x={50}
+          stroke="red"
+          label={{ value: "Equal Gender Participation", position: "top", fill: "red", fontWeight: "bold" }}
+        />
+        {/*  Highlight the region where female participation is high (>=50%) and wage gap is negative */}
+        <ReferenceArea 
+          x1={50}
+          x2={100}
+          y1={-50}
+          y2={0}
+          label={{ value: "High Participation & Negative Wage Gap", fill: "green", fontSize: 16 }}
+          strokeOpacity={0}
+          fill="green"
+          fillOpacity={0.1}
+        />
+        <Scatter name="Life Sciences" data={lifeSciences} fill="#8884d8" />
+        <Scatter name="Computer Science" data={computerScience} fill="#82ca9d" />
+        <Scatter name="Mathematical Sciences" data={mathematics} fill="#ffa726" />
+        <Scatter name="Physical Sciences" data={physicalSciences} fill="#ff7300" />
+        <Scatter name="Psychology" data={psychology} fill="#ff589b" />
+        <Scatter name="Social Sciences" data={socialSciences} fill="#a4de6c" />
+        <Scatter name="Engineering" data={engineering} fill="#8dd1e1" />
       </ScatterChart>
     </div>
   );

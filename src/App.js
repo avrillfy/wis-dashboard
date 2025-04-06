@@ -13,7 +13,7 @@ const navItems = [
   { id: 'section3', label: 'Degrees & Occupation' },
   { id: 'section4', label: 'Wage Gap' },
   { id: 'section5', label: 'Women in R&D' },
-  { id: 'section6', label: 'Faculty & Enrollment' },
+  { id: 'section6', label: 'Doctoral Degrees and Wage Gap' },
 ];
 
 function Navbar({ activeSection }) {
@@ -24,12 +24,12 @@ function Navbar({ activeSection }) {
     textDecoration: 'none',
     color: '#000',
     transition: 'background-color 0.3s, color 0.3s',
-    fontWeight: 500
+    fontWeight: 500,
   };
 
   const activeStyle = {
     backgroundColor: '#00008Baa',
-    color: '#fff'
+    color: '#fff',
   };
 
   return (
@@ -42,11 +42,11 @@ function Navbar({ activeSection }) {
         background: '#fff',
         borderBottom: '1px solid #ccc',
         zIndex: 1000,
-        padding: '15px 20px'
+        padding: '15px 20px',
       }}
     >
       <ul style={{ display: 'flex', listStyle: 'none', margin: 0, padding: 0 }}>
-        <li style={{ marginRight: 30,  fontWeight: 700 }}>Women in STEM 🌱</li>
+        <li style={{ marginRight: 30, fontWeight: 700 }}>Women in STEM 🌱</li>
         {navItems.map((item) => (
           <li key={item.id}>
             <a
@@ -75,7 +75,6 @@ function App() {
         const section = document.getElementById(item.id);
         if (section) {
           const rect = section.getBoundingClientRect();
-          // Check if the section is at the top of the viewport (offset by navbar height)
           if (rect.top <= 70 && rect.bottom >= 70) {
             currentSection = item.id;
           }
@@ -85,18 +84,16 @@ function App() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    // Initial check in case the page is not at the top
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <div className="App" style={{ paddingBottom: 100, paddingTop: 60 }}>
+    <div className="App" style={{ paddingBottom: 1000, paddingTop: 60 }}>
       <Navbar activeSection={activeSection} />
       <div id="section1" style={{ paddingTop: '80px', marginTop: '-80px' }}>
         <h2>Gender Representation in STEM Degree Attainment Over Time</h2>
-
         <GenderTrendLineChart />
       </div>
       <div id="section2" style={{ paddingTop: '80px', marginTop: '-80px' }}>
@@ -104,11 +101,28 @@ function App() {
         <ClusterBarChart />
       </div>
       <div id="section3" style={{ paddingTop: '80px', marginTop: '-80px' }}>
-        <h2>Gender Composition of Degrees and transition to STEM Occupation</h2>
+        <h2>Gender Composition of Degrees and Transition to STEM Occupation</h2>
         <SankeyChart />
       </div>
       <div id="section4" style={{ paddingTop: '80px', marginTop: '-80px' }}>
         <h2>Gender Wage Gap Across STEM Occupations</h2>
+        {/* Minimal info box */}
+        <div
+          style={{
+            border: '1px solid #ccc',
+            padding: '10px',
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: '20px',
+            maxWidth: '800px',
+            marginBottom: '-50px',
+            margin: '20px auto'
+          }}
+          >
+          <p style={{ margin: 0 }}>Gender Wage Gap = ((Median Salary M − Median Salary F) / Median Salary M) × 100%</p>
+          <p style={{ margin: 10 }}></p>
+          <p style={{ margin: 0 }}>Positive : Males paid more</p>
+          <p style={{ margin: 5}}>Negative : Females paid more</p>
+        </div>
         <BubbleChart />
       </div>
       <div id="section5" style={{ paddingTop: '80px', marginTop: '-80px' }}>
@@ -117,7 +131,7 @@ function App() {
       </div>
       <div id="section6" style={{ paddingTop: '80px', marginTop: '-80px' }}>
         <h2 style={{ marginTop: 80 }}>
-          Relationship Between Gender Representation in Faculty Positions and Student Enrollment in STEM
+          Women Participation across Doctoral Fields and Gender Wage Gap
         </h2>
         <ScatterPlot />
       </div>

@@ -7,7 +7,8 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
+  ReferenceLine,
 } from 'recharts';
 import clusterData from '../../data/clusterBarData.json';
 
@@ -65,15 +66,16 @@ const ClusterBarChart = () => {
     backgroundColor: '#f0f0f0'
   };
 
+  // Calculate percentage representation for each field
   const clusterPercentData = clusterData.map(item => ({
     ...item,
-    "bachelorsMale": item.bachelorsMale / (item.bachelorsMale + item.bachelorsFemale) * 100,
-    "bachelorsFemale": item.bachelorsFemale / (item.bachelorsFemale + item.bachelorsMale) * 100,
-    "mastersMale": item.mastersMale / (item.mastersMale + item.mastersFemale) * 100,
-    "mastersFemale": item.mastersFemale / (item.mastersFemale + item.mastersMale) * 100,
-    "doctoralMale": item.doctoralMale / (item.doctoralMale + item.doctoralFemale) * 100,
-    "doctoralFemale": item.doctoralFemale / (item.doctoralFemale + item.doctoralMale) * 100,
-  }))
+    "bachelorsMale": (item.bachelorsMale / (item.bachelorsMale + item.bachelorsFemale)) * 100,
+    "bachelorsFemale": (item.bachelorsFemale / (item.bachelorsMale + item.bachelorsFemale)) * 100,
+    "mastersMale": (item.mastersMale / (item.mastersMale + item.mastersFemale)) * 100,
+    "mastersFemale": (item.mastersFemale / (item.mastersMale + item.mastersFemale)) * 100,
+    "doctoralMale": (item.doctoralMale / (item.doctoralMale + item.doctoralFemale)) * 100,
+    "doctoralFemale": (item.doctoralFemale / (item.doctoralMale + item.doctoralFemale)) * 100,
+  }));
 
   return (
     <div style={{ padding: '40px', fontFamily: 'Poppins, sans-serif' }}>
@@ -109,6 +111,16 @@ const ClusterBarChart = () => {
           />
           <Tooltip content={<CustomTooltip />} />
           <Legend wrapperStyle={{ fontFamily: 'Poppins, sans-serif' }} />
+          
+          {/* Annotation: Reference line at 50% to indicate gender parity */}
+          <ReferenceLine 
+            y={50} 
+            x={100}
+            stroke="red" 
+            strokeDasharray="3 3"
+            label={{ value: 'Gender Parity', position: 'insideRight', fill: 'red', fontWeight: 'bold', dy: -15 }}
+          />
+
           <Bar dataKey={degreeKeyMale} fill={maleColor} name={`${degreeLabel} Male`} />
           <Bar dataKey={degreeKeyFemale} fill={femaleColor} name={`${degreeLabel} Female`} />
         </BarChart>
